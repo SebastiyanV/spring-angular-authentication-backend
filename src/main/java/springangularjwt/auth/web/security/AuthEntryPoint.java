@@ -18,6 +18,6 @@ public class AuthEntryPoint implements AuthenticationEntryPoint {
             HttpServletResponse httpServletResponse,
             AuthenticationException e) throws IOException, ServletException {
 
-        httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: UNAUTHORIZED");
+        httpServletResponse.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong email or password!");
     }
 }

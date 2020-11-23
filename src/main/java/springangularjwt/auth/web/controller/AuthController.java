@@ -64,11 +64,15 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> userLogin(@RequestBody UserLoginServiceModel userLoginServiceModel) {
+
         Authentication authentication = this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         userLoginServiceModel.getEmail(),
-                        userLoginServiceModel.getPassword())
-        );
+                        userLoginServiceModel.getPassword()));
+
+        if (!authentication.isAuthenticated()) {
+            return ResponseEntity.badRequest().body(new MessageResponseModel("Wrong email or password!"));
+        }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtToken = this.jwtUtils.generateJwtToken(authentication);
