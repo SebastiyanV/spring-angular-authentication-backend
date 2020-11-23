@@ -58,4 +58,15 @@ public class UserServiceImpl implements UserService {
         user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
         this.userRepository.saveAndFlush(user);
     }
+
+    @Override
+    public List<User> getAllUser() {
+        return this.userRepository.findAll();
+    }
+
+    @Override
+    public User getUserById(String userId) {
+        return this.userRepository.findById(userId)
+                .orElse(null);
+    }
 }
